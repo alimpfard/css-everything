@@ -6,7 +6,7 @@ all-the-css.html: all-the-css.bs
 
 all-the-css.bs: all-the-css.prelude $(ALL_FILES_COPIED)
 	cat all-the-css.prelude > all-the-css.bs
-	@ $(foreach name,$(ALL_FILES_COPIED),echo -e "<pre class=include>\npath: $(name)\n</pre>" >> all-the-css.bs;)
+	@ $(foreach name,$(ALL_FILES_COPIED),echo "<pre class=include>\npath: $(name)\n</pre>" >> all-the-css.bs;)
 
 clean:
 	rm -f $(ALL_FILES_COPIED)
