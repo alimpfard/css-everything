@@ -1,0 +1,27 @@
+name: Build and produce artifacts
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Pull csswg-drafts
+      run: git submodule update --init
+
+    - name: Generate all-the-css.html
+      run: make
+      
+    - name: Make a smol directory
+      run: mkdir build && mv all-the-css.bs all-the-css.html build
+      
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        path: build
