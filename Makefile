@@ -1,5 +1,6 @@
-ALL_FILES_EXTERN := $(wildcard csswg-drafts/**/*.bs) $(wildcard csswg-drafts/**/*.src.html)
-ALL_FILES_COPIED := $(subst /,@,$(subst csswg-drafts/,,$(ALL_FILES_EXTERN)))
+ALL_FILES_EXTERN := $(wildcard csswg-drafts/**/*.bs) $(wildcard csswg-drafts/**/*.src.html) $(wildcard css-houdini-drafts/**/*.bs) $(wildcard css-houdini-drafts/**/*.src.html)
+
+ALL_FILES_COPIED := $(subst /,@,$(subst css-houdini-drafts/,,$(subst csswg-drafts/,,$(ALL_FILES_EXTERN))))
 
 all-the-css.html: all-the-css.bs
 	python -m bikeshed --die-on nothing spec all-the-css.bs
@@ -18,6 +19,11 @@ clean:
 %.bs: csswg-drafts/$$(subst @,/,%).bs
 	cp $< $@
 
-%.src.html: csswg-drafts/$$(subst @,/,%).src.html
+%.bs: css-houdini-drafts/$$(subst @,/,%).bs
 	cp $< $@
 
+%.src.html: css-houdini-drafts/$$(subst @,/,%).src.html
+	cp $< $@
+
+%.src.html: csswg-drafts/$$(subst @,/,%).src.html
+	cp $< $@
